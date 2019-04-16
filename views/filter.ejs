@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        <form class="form" action="filter_result">
+        <form class="form" action="/filter/filter_result" method="get">
             <div class="form-group">
                 <label class="font-weight-bold" for="search_bar">Search</label>
                 <input class="form-control" type="text" id="search_bar" name="search_term" placeholder="Enter Search Term">
@@ -21,19 +21,34 @@
                 <div class="col-sm-2">
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name="price1" value="True">$
+                            <input class="form-check-input" type="checkbox" name="price" value="$">$
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name="price2" value="True">$$
+                            <input class="form-check-input" type="checkbox" name="price" value="$$">$$
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name="price3" value="True">$$$
+                            <input class="form-check-input" type="checkbox" name="price" value="$$$">$$$
                         </label>
                     </div>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" name="hour">
+                        <option selected value="">Select Hour</option>
+                        <%
+                        var hours_menu = '';
+                        for (i = 0; i < 24; i++) {
+                            hours_menu += "<option value='" + i*100 + "'>";
+                            hours_menu += (i == 0 || i == 12) ? '12' : i % 12;
+                            hours_menu += (i < 12) ? ' AM' : ' PM';
+                            hours_menu += "</option>";
+                        }
+                        %>
+                        <%-hours_menu%>
+                    </select>
                 </div>
             </div>
             <input type="submit" value="Submit" class="btn btn-success">
@@ -49,7 +64,13 @@
             if (results) {
                 var table = '';
                 results.forEach(function(item){
-                    table += '<tr><td>' + item.restaurant_name + '</td><td>' + item.restaurant_hours + '</td><td>' + item.restaurant_price + '</td><td>' + item.restaurant_rating + '</td></tr>';
+                    open = String(item.restaurant_open_time);
+                    close = String(item.restaurant_close_time);
+                    times = (open.substring(0, open.length - 2) % 12) + ':' + open.substring(open.length - 2, open.length);
+                    times += (item.restaurant_open_time >= 1200) ? ' PM ' : ' AM ';
+                    times += (close.substring(0, close.length - 2) % 12) + ':' + close.substring(close.length - 2, close.length);
+                    times += (item.restaurant_close_time >= 1200) ? ' PM ' : ' AM ';
+                    table += '<tr><td>' + item.restaurant_name + '</td><td>' + times + '</td><td>' + item.restaurant_price + '</td><td>' + item.restaurant_rating + '</td></tr>';
                 }); %>
             <%-table%>
             <%}%>

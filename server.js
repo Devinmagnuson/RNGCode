@@ -38,29 +38,31 @@ app.get('/filter', function(req, res) {
 });
 
 app.get("/filter/filter_result", function(req, res) {
-    price_1 = req.query.price1;
-    price_2 = req.query.price2;
-    price_3 = req.query.price3;
-    filter_query = "select * from restaurants";
-    if (price_1 || price_2 || price_3) {
-        filter_query += " where";
-        if (price_1) {
-            filter_query += " restaurant_price='$'";
+    var prices = req.query.price;
+    var hour = req.query.hour;
+
+    var price_query = "";
+    var hour_query = "";
+
+    if (prices && prices.length > 1) {
+        for (i = 0; i < prices.length; i++) {
+            prices[i] = " where restaurant_price='" + prices[i] + "'";
         }
-        if (price_2) {
-            if (price_1) {
-                filter_query += " or";
-            }
-            filter_query += " restaurant_price='$$'";
-        }
-        if (price_3) {
-            if (price_1 || price_2) {
-                filter_query += ' or';
-            }
-            filter_query += " restaurant_price='$$$'";
-        }
+        price_query = prices.join(" or ");
     }
+    else if (prices) {
+        price_query = " where restaurant_price='" + prices + "'";
+    }
+
+    if (hour != "") {
+        hour_query = " where" + hour + "> int(restaurant_open_time) and" + hour + " < int(restaurant_close_time)"
+    }
+    
+    var starter_query = "select * from restaurants";
+    var filter_query = starter_query + price_query + hour_query;
     filter_query += " order by restaurant_name;";
+
+    console.log(filter_query);
     db.any(filter_query)
 	.then(rows => {
 		res.render("filter", {
