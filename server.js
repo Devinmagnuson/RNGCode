@@ -17,8 +17,13 @@ var db = pgp('postgres://cycxtixl:tgq8Okya-25g3veNRT9wwKI2L84SjyVr@otto.db.eleph
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/"));
 
-app.get("/", function(req, res) {
-	res.render("home");
+
+
+app.get("/home", function(req, res) {
+	res.render("home",{
+    message: 'Hello',
+    local_css: "signin.css"
+});
 });
 
 app.get('/filter', function(req, res) {
