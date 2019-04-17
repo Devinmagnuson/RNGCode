@@ -16,9 +16,10 @@
                 <label class="font-weight-bold" for="search_bar">Search</label>
                 <input class="form-control" type="text" id="search_bar" name="search_term" placeholder="Enter Search Term">
             </div>
-            <label>Filter</label>
+            <h2>Filter</h2>
             <div class="row">
                 <div class="col-sm-2">
+                    <h6>Price:</h6>
                     <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input" type="checkbox" name="price" value="$">$
@@ -49,6 +50,28 @@
                         %>
                         <%-hours_menu%>
                     </select>
+                    <select class="form-control" name="food_type">
+                        <option selected value="">Select Food Type</option>
+                        <%
+                        var food_menu = '';
+                        var foods = ["American", "Mexican", "Asian"]
+                        foods.forEach(function(item) {
+                            food_menu += "<option value='" + item + "'>" + item + "</option>";
+                            food_menu += item
+                        })%>
+                        <%-food_menu%>
+                    </select>
+                    <select class="form-control" name="drink_type">
+                            <option selected value="">Select Drink Type</option>
+                            <%
+                            var drink_menu = '';
+                            var drinks = ["Beer", "Wine", "Cocktail"]
+                            drinks.forEach(function(item) {
+                                drink_menu += "<option value='" + item + "'>" + item + "</option>";
+                                drink_menu += item
+                            })%>
+                            <%-drink_menu%>
+                        </select>
                 </div>
             </div>
             <input type="submit" value="Submit" class="btn btn-success">
@@ -72,7 +95,10 @@
                     times += (close.substring(0, close.length - 2) % 12) + ':' + close.substring(close.length - 2, close.length);
                     times += (item.restaurant_close_time >= 1200) ? ' PM ' : ' AM ';
                     table += '<tr><td>' + item.restaurant_name + '</td><td>' + times + '</td><td>' + item.restaurant_price + '</td><td>' + item.restaurant_rating + '</td></tr>';
-                }); %>
+                }); 
+                if (table == '') {
+                    table = "<tr><td>No results found.</tr></td>"
+                }%>
             <%-table%>
             <%}%>
         </table>

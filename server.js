@@ -70,32 +70,37 @@ app.get('/filter', function(req, res) {
 });
 
 app.get("/filter/filter_result", function(req, res) {
+    //retrieve various parameters
     var search = req.query.search_term;
     var prices = req.query.price;
     var hour = req.query.hour;
 
+    //initialize empty strings to hold queries
     var search_query = "";
     var price_query = "";
     var hour_query = "";
 
+    //if search term defined, query for any restaurant whose name, food type, or alcohol type contains search term as a substring
     if (search != "") {
         search_query = "(lower(restaurant_name) like lower('%" + search + "%')) or (lower(restaurant_food) like lower('%" + search + "%')) or (lower(restaurant_alcohol) like lower('%" + search + "%'))";
     }
 
-    if (prices && typeof(prices) == "object") {
+    if (prices && typeof(prices) == "object") { //if more than one price selected, will be an object, will query by all prices connected with an 'or'
         for (i = 0; i < prices.length; i++) {
             prices[i] = "restaurant_price='" + prices[i] + "'";
         }
         price_query = prices.join(" or ");
     }
-    else if (prices) {
+    else if (prices) { //if not an object, but still defined, only one price to query by
         price_query = "restaurant_price='" + prices + "'";
     }
 
+    //if hour parameter defined, query by times for which the hour given is between the opening and closing time of restaurant (after the first 'or' handles cases where the restaurant closes past midnight)
     if (hour != "") {
         hour_query = "(" + hour + " > cast (restaurant_open_time as int) and " + hour + " <= cast (restaurant_close_time as int)) or (cast (restaurant_open_time as int) >= cast (restaurant_close_time as int) and (" + hour + " >= cast (restaurant_open_time as int) or " + hour + " <= cast (restaurant_close_time as int)))";
     }
 
+    //construct the final query where clause
     queries = [];
     if (search_query != "") {
         queries.push(search_query);
@@ -111,6 +116,7 @@ app.get("/filter/filter_result", function(req, res) {
         queries = " where (" + queries + ")";
     }
 
+    //construct final query
     var starter_query = "select * from restaurants";
     var filter_query = starter_query + queries;
     filter_query += " order by restaurant_name;";
