@@ -3,6 +3,9 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <title>Displaying Text Directions With setPanel()</title>
     <style>
       /* Always set the map height explicitly to define the size of the div
@@ -77,6 +80,19 @@
     </style>
   </head>
   <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Thirsty Tracker</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <!--<li class="active"><a href="#">Herp</a></li>-->
+          <li><a href="./views/home.ejs">Home</a></li>
+          <li><a href="usercreationpage.html">Registration</a></li>
+          <li><a href="Map Test.html">Location</a></li>
+        </ul>
+      </div>
+    </nav>
     <div id="floating-panel">
       <strong>Start:</strong>
       <select id="start">
