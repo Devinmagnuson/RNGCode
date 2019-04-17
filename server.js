@@ -19,7 +19,7 @@ app.use(express.static(__dirname + "/"));
 
 
 
-app.get("/home", function(req, res) {
+app.get("/register", function(req, res) {
 	res.render("home",{
     message: 'Hello',
     local_css: "signin.css"
