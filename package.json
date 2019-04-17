@@ -1,10 +1,31 @@
 {
-    "name": "node-ejs",
-    "main": "server.js",
-    "dependencies": {
-        "ejs": "^2.5.5",
-        "ejs-lint": "^0.3.0",
-        "express": "^4.6.1",
-        "pg-promise": "^8.5.1"
-    }
+  "name": "thirstytracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Devinmagnuson/RNGCode.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Devinmagnuson/RNGCode/issues"
+  },
+  "homepage": "https://github.com/Devinmagnuson/RNGCode#readme",
+  "dependencies": {
+    "ave": "0.0.1-0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "pg": "^7.10.0",
+    "pg-promise": "^8.6.5"
+  },
+  "engines": {
+	"node": "11.7"
+   }
+
 }
