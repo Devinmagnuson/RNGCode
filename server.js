@@ -18,16 +18,22 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/"));
 
 app.get('/register', function(req, res) {
-	res.render("home",{
+	res.render("register",{
     //local_css: "signin.css"
 });
 });
+
+app.get('/home', function(req, res){
+    res.render('home',{
+    })
+})
 
 
 app.get('/login', function(req, res){
     res.render('login',{
     })
 })
+
 // app.post('/register', function (req, res, next){
 //     const user = req.user
 //     const pw = req.pw
