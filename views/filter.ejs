@@ -81,7 +81,7 @@
                 <th>Name</th>
                 <th>Hours</th>
                 <th>Price</th>
-                <th>Rating</th>
+                <th>Type</th>
             </tr>
             <%
             if (results) {
@@ -94,7 +94,7 @@
                     times += " - "
                     times += (close.substring(0, close.length - 2) % 12) + ':' + close.substring(close.length - 2, close.length);
                     times += (item.restaurant_close_time >= 1200) ? ' PM ' : ' AM ';
-                    table += '<tr><td>' + item.restaurant_name + '</td><td>' + times + '</td><td>' + item.restaurant_price + '</td><td>' + item.restaurant_rating + '</td></tr>';
+                    table += '<tr><td>' + item.restaurant_name + '</td><td>' + times + '</td><td>' + item.restaurant_price + '</td><td>' + item.restaurant_food.replace(/\w\S*/g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) + '</td></tr>';
                 }); 
                 if (table == '') {
                     table = "<tr><td>No results found.</tr></td>"

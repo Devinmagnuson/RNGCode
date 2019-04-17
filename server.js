@@ -74,11 +74,15 @@ app.get("/filter/filter_result", function(req, res) {
     var search = req.query.search_term;
     var prices = req.query.price;
     var hour = req.query.hour;
+    var food = req.query.food_type;
+    var drink = req.query.drink_type;
 
     //initialize empty strings to hold queries
     var search_query = "";
     var price_query = "";
     var hour_query = "";
+    var food_query = "";
+    var drink_query = "";
 
     //if search term defined, query for any restaurant whose name, food type, or alcohol type contains search term as a substring
     if (search != "") {
@@ -100,17 +104,22 @@ app.get("/filter/filter_result", function(req, res) {
         hour_query = "(" + hour + " > cast (restaurant_open_time as int) and " + hour + " <= cast (restaurant_close_time as int)) or (cast (restaurant_open_time as int) >= cast (restaurant_close_time as int) and (" + hour + " >= cast (restaurant_open_time as int) or " + hour + " <= cast (restaurant_close_time as int)))";
     }
 
+    if (food != "") {
+        food_query = "lower(restaurant_food) like lower('%" + food + "%')";
+    }
+
+    if (drink != "") {
+        drink_query = "lower(restaurant_alcohol) like lower('%" + drink + "%')";
+    }
+
     //construct the final query where clause
+    queries_unchecked = [search_query, price_query, hour_query, food_query, drink_query];
     queries = [];
-    if (search_query != "") {
-        queries.push(search_query);
-    }
-    if (price_query != "") {
-        queries.push(price_query);
-    }
-    if (hour_query != "") {
-        queries.push(hour_query);
-    }
+    queries_unchecked.forEach(function(query) {
+        if (query != "") {
+            queries.push(query);
+        }
+    })
     queries = queries.join(") and (");
     if (queries != "") {
         queries = " where (" + queries + ")";
