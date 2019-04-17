@@ -75,5 +75,5 @@ app.get("/filter/filter_result", function(req, res) {
 	})
 });
 
-app.listen(3000);
+app.listen(process.env.PORT);
 console.log('3000 is the magic port');
