@@ -17,14 +17,35 @@ var db = pgp('postgres://cycxtixl:tgq8Okya-25g3veNRT9wwKI2L84SjyVr@otto.db.eleph
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/"));
 
-
-
-app.get("/register", function(req, res) {
+app.get('/register', function(req, res) {
 	res.render("home",{
-    message: 'Hello',
-    local_css: "signin.css"
+    //local_css: "signin.css"
 });
 });
+
+
+app.get('/login', function(req, res){
+    res.render('login',{
+    })
+})
+// app.post('/register', function (req, res, next){
+//     const user = req.user
+//     const pw = req.pw
+//     const email = req.age
+//     const age = req.age
+
+//     db.task('get-everything', task =>{
+//         return task.batch([
+//             task.any()
+
+//             ]);
+//     })
+//     .then(info =>){
+//         res.render('/login',{
+//             my_title
+//         })
+//     }
+// })
 
 app.get('/filter', function(req, res) {
     filter_query = "select * from restaurants order by restaurant_name;";
