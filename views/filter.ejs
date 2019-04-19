@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <title>Home Page</title>
         <link rel='icon' href='../resources/img/favicon.ico' type='image/x-icon'/>
         
@@ -11,15 +12,29 @@
     </head>
 
     <body>
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="#">Thirsty Tracker</a>
+            </div>
+            <ul class="nav navbar-nav">
+              <!--<li class="active"><a href="#">Herp</a></li>-->
+              <li><a href="home">Home</a></li>
+              <li><a href="login">Login</a></li>
+              <li><a href="location">Location</a></li>
+              <li><a href="filter">Filter</a></li>
+              <li><a href="register">Registration</a></li>
+            </ul>
+            </div>
+        </nav>
         <form class="form" action="/filter/filter_result" method="get">
             <div class="form-group">
                 <label class="font-weight-bold" for="search_bar">Search</label>
                 <input class="form-control" type="text" id="search_bar" name="search_term" placeholder="Enter Search Term">
             </div>
-            <h2>Filter</h2>
+            <label>Filter</label>
             <div class="row">
                 <div class="col-sm-2">
-                    <h6>Price:</h6>
                     <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input" type="checkbox" name="price" value="$">$
@@ -50,28 +65,6 @@
                         %>
                         <%-hours_menu%>
                     </select>
-                    <select class="form-control" name="food_type">
-                        <option selected value="">Select Food Type</option>
-                        <%
-                        var food_menu = '';
-                        var foods = ["American", "Mexican", "Asian"]
-                        foods.forEach(function(item) {
-                            food_menu += "<option value='" + item + "'>" + item + "</option>";
-                            food_menu += item
-                        })%>
-                        <%-food_menu%>
-                    </select>
-                    <select class="form-control" name="drink_type">
-                            <option selected value="">Select Drink Type</option>
-                            <%
-                            var drink_menu = '';
-                            var drinks = ["Beer", "Wine", "Cocktail"]
-                            drinks.forEach(function(item) {
-                                drink_menu += "<option value='" + item + "'>" + item + "</option>";
-                                drink_menu += item
-                            })%>
-                            <%-drink_menu%>
-                        </select>
                 </div>
             </div>
             <input type="submit" value="Submit" class="btn btn-success">
@@ -81,7 +74,7 @@
                 <th>Name</th>
                 <th>Hours</th>
                 <th>Price</th>
-                <th>Type</th>
+                <th>Rating</th>
             </tr>
             <%
             if (results) {
@@ -91,14 +84,10 @@
                     close = String(item.restaurant_close_time);
                     times = (open.substring(0, open.length - 2) % 12) + ':' + open.substring(open.length - 2, open.length);
                     times += (item.restaurant_open_time >= 1200) ? ' PM ' : ' AM ';
-                    times += " - "
                     times += (close.substring(0, close.length - 2) % 12) + ':' + close.substring(close.length - 2, close.length);
                     times += (item.restaurant_close_time >= 1200) ? ' PM ' : ' AM ';
-                    table += '<tr><td>' + item.restaurant_name + '</td><td>' + times + '</td><td>' + item.restaurant_price + '</td><td>' + item.restaurant_food.replace(/\w\S*/g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) + '</td></tr>';
-                }); 
-                if (table == '') {
-                    table = "<tr><td>No results found.</tr></td>"
-                }%>
+                    table += '<tr><td>' + item.restaurant_name + '</td><td>' + times + '</td><td>' + item.restaurant_price + '</td><td>' + item.restaurant_rating + '</td></tr>';
+                }); %>
             <%-table%>
             <%}%>
         </table>
