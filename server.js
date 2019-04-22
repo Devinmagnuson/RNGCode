@@ -15,8 +15,7 @@ var pgp = require('pg-promise')();
 //  password: 'tgq8Okya-25g3veNRT9wwKI2L84SjyVr'
 //};
 
-//trying to play with db to connect to heroku 
-
+//trying to play with db to connect to heroku
 var db = pgp('postgres://cycxtixl:tgq8Okya-25g3veNRT9wwKI2L84SjyVr@otto.db.elephantsql.com:5432/cycxtixl');
 
 //const dbConfig = process.env.DATABASE_URL;
@@ -35,28 +34,28 @@ app.get('/register', function(req, res) {
 });
 
 app.post('/register/submit', function (req, res){
-    var userName = req.body.username;
-    var email = req.body.email;
-    var password = req.body.password;
-    //ar age = req.body.age;
     var name = req.body.name;
+    var userName = req.body.userName;
+    var email = req.body.emailAddress;
+    var password = req.body.passwordFirst;
+    
 
-    var insert_query = "INSERT INTO users(name, username, email, password) VALUES('" 
-                         +name+"', '"+userName+"','"+email+"' , '"+password+"');"; 
+    var insert_query = "INSERT INTO users(name,user_name,email,password) VALUES('"
+                        +name+"','"+userName+"','"+email+"','"+password+"');"; 
+
 
     db.any(insert_query)
-        .then(function(rows){
-            res.render('/login',{
-                data: rows
+        .then(function (rows){
+            res.render('login',{
             })
         })
-    .catch(error => {
-        console.log(error);
-        res.send({
-            data: ''
-        })
+    .catch(err => {
+        console.log(err);
+        res.render("register") 
+           
     })
     });
+
 
 app.get('/home', function(req, res){
     res.render('home',{
@@ -64,37 +63,32 @@ app.get('/home', function(req, res){
 });
 
 
-app.get('/login', function(req, res){
+app.get('/', function(req,res){
     res.render('login',{
     });
 });
 
-// app.post('/login', function(req, res){
-//     var email = req.body.email;
-//     var password = req.body.password;
+app.get('/login',function(req,res){
+    //console.log(req.query);
+    var userName = req.query.uname;
+    var userPass = req.query.psw;
 
-//     var val_query = "select exists(select 1 from user_profiles where email='"+email+"' AND password='"+password+"');";
-//     var user_id_query = "select id from user_profiles where email='"+email+"' AND password='"+password+"';";
+            if(userName == 'admin' && userPass == 'pass'){
+                res.render('home');
+            }
+            else{
+                res.render('login',{
+                });
+            }
+        });
 
-//     db.task('get-everything', task => {
-//         return task.batch([
-//             task.any(val_query),
-//             task.any(user_id_query)
-//             ]);
-//     }) 
-//     .then(info => {
-//         res.send({
-//             id: info[0]
-//         })
-//     })
-//     .catch(error => {
-//         console.log(error);
-//         res.send({
 
-//             id : ''
-//         })
-//     })
-//     });
+
+app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+});
+
 
 
 app.get('/location', function(req, res){
