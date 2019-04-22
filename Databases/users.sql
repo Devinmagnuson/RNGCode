@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS users (
-	Id UUID NOT NULL,
-User_pkey serial PRIMARY key,
-	Full_name CHAR (70) UNIQUE NOT NULL,
+	id serial PRIMARY key,
+	name CHAR (70) UNIQUE NOT NULL,
 	Username VARCHAR (50) UNIQUE NOT NULL,
 	Email VARCHAR (75) UNIQUE NOT NULL,
 	Password VARCHAR (25) UNIQUE NOT NULL,
-	User_favorites VARCHAR (50)
+	User_favorites VARCHAR (50),
+	Age VARCHAR (3)
 );

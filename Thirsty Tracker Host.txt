@@ -1,7 +1,0 @@
-Server: 	otto.db.elephantsql.com (otto-01)
-
-User & Default database: 	cycxtixl 
-
-Password: 	tgq8Okya-25g3veNRT9wwKI2L84SjyVr 
-
-URL: 	postgres://cycxtixl:tgq8Okya-25g3veNRT9wwKI2L84SjyVr@otto.db.elephantsql.com:5432/cycxtixl

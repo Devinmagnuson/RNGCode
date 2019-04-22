@@ -1,8 +1,10 @@
 var express = require('express');
 var app = express();
+const path = require('path');
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 var pgp = require('pg-promise')();
 
 //const dbConfig = {
@@ -12,16 +14,49 @@ var pgp = require('pg-promise')();
 //  user: 'cycxtixl',
 //  password: 'tgq8Okya-25g3veNRT9wwKI2L84SjyVr'
 //};
+
+//trying to play with db to connect to heroku 
+
 var db = pgp('postgres://cycxtixl:tgq8Okya-25g3veNRT9wwKI2L84SjyVr@otto.db.elephantsql.com:5432/cycxtixl');
+
+//const dbConfig = process.env.DATABASE_URL;
+
+//var db = pgp(dbConfig);
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/"));
 
+
+
+
 app.get('/register', function(req, res) {
     res.render("register",{
-    //local_css: "signin.css"
     });
 });
+
+app.post('/register/submit', function (req, res){
+    var userName = req.body.username;
+    var email = req.body.email;
+    var password = req.body.password;
+    //ar age = req.body.age;
+    var name = req.body.name;
+
+    var insert_query = "INSERT INTO users(name, username, email, password) VALUES('" 
+                         +name+"', '"+userName+"','"+email+"' , '"+password+"');"; 
+
+    db.any(insert_query)
+        .then(function(rows){
+            res.render('/login',{
+                data: rows
+            })
+        })
+    .catch(error => {
+        console.log(error);
+        res.send({
+            data: ''
+        })
+    })
+    });
 
 app.get('/home', function(req, res){
     res.render('home',{
@@ -34,29 +69,39 @@ app.get('/login', function(req, res){
     });
 });
 
+// app.post('/login', function(req, res){
+//     var email = req.body.email;
+//     var password = req.body.password;
+
+//     var val_query = "select exists(select 1 from user_profiles where email='"+email+"' AND password='"+password+"');";
+//     var user_id_query = "select id from user_profiles where email='"+email+"' AND password='"+password+"';";
+
+//     db.task('get-everything', task => {
+//         return task.batch([
+//             task.any(val_query),
+//             task.any(user_id_query)
+//             ]);
+//     }) 
+//     .then(info => {
+//         res.send({
+//             id: info[0]
+//         })
+//     })
+//     .catch(error => {
+//         console.log(error);
+//         res.send({
+
+//             id : ''
+//         })
+//     })
+//     });
+
+
 app.get('/location', function(req, res){
     res.render('location',{
     });
 });
 
-// app.post('/register', function (req, res, next){
-//     const user = req.user
-//     const pw = req.pw
-//     const email = req.age
-//     const age = req.age
-
-//     db.task('get-everything', task =>{
-//         return task.batch([
-//             task.any()
-
-//             ]);
-//     })
-//     .then(info =>){
-//         res.render('/login',{
-//             my_title
-//         })
-//     }
-// })
 
 app.get('/filter', function(req, res) {
     filter_query = "select * from restaurants order by restaurant_name;";
@@ -71,7 +116,7 @@ app.get('/filter', function(req, res) {
         res.render("filter", {
             results: ""
         })
-    })
+    });
 });
 
 app.get("/filter/filter_result", function(req, res) {
