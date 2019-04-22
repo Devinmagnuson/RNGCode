@@ -189,5 +189,5 @@ app.get("/filter/filter_result", function(req, res) {
     })
 });
 
-app.listen(3000);
-console.log('3000 is the magic port');
+app.listen(process.env.PORT);
+console.log('This is a magic Heroku port');
