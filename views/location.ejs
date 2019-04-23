@@ -77,6 +77,31 @@
           width: auto;
         }
       }
+
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #4CAF50;
+      }
+
+      li {
+        float: left;
+      }
+
+      li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+
+      /* Change the link color to #111 (black) on hover */
+      li a:hover {
+        background-color: #adebad;
+      }
     </style>
   </head>
   <body>
@@ -110,7 +135,7 @@
                 address = String(item.restaurant_address);
                 name = String(item.restaurant_name);
                 option += '<option value="' + address + '">' + name + '</option>';
-            }); 
+            });
             if (option == '') {
                 table = "<option>Nothing here</option>"
             }%>
@@ -162,7 +187,7 @@
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
-        } 
+        }
         else {
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
