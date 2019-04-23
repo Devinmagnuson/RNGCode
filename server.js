@@ -4,7 +4,6 @@ const path = require('path');
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 var pgp = require('pg-promise')();
 
 //const dbConfig = {
@@ -15,28 +14,9 @@ var pgp = require('pg-promise')();
 //  password: 'tgq8Okya-25g3veNRT9wwKI2L84SjyVr'
 //};
 
-//trying to play with db to connect to heroku
-//var db = require('pg-promise')();
-
-//DATABASE_URL=$(heroku config:get DATABASE_URL -a cuthirstytracker) your_process
-
-
 const dbConfig = process.env.DATABASE_URL;
 
 var db = pgp(dbConfig);
-
-
-//var connectionString = "postgres://oswmixgjvrjqdk:5dc9d975d6534240a995209965cfd140104962ee2039770c9e43bb3c628fd4cf@ec2-23-23-195-205.compute-1.amazonaws.com:5432/d7btfbcn3a35sj"
-
-/*pg.connect(connectionString, function(err, client, done)
-{
-   client.query('SELECT * FROM users', function(err, result) {
-      done();
-      if(err) return console.error(err);
-      console.log(result.rows);
-   });
-});*/
-
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/"));
@@ -84,19 +64,28 @@ app.get('/', function(req,res){
     });
 });
 
-app.get('/login',function(req,res){
-    //console.log(req.query);
-    var userName = req.query.uname;
-    var userPass = req.query.psw;
+app.post('/login', function(req,res){
+    var userName = request.body.uname;
+    var userPass = request.body.psw;
 
-            if(userName == 'admin' && userPass == 'pass'){
-                res.render('home');
-            }
-            else{
-                res.render('login',{
+    if(userPass && userName){
+        connection.query('select * from users where username = ? and password = ?', [userName,userPass], function(error, results, fields){
+            if(results.length > 0){
+                request.sesion.loggedin = true;
+                request.session.username = username;
+                response.direct('filter');
+            }else{
+                response.send('Incorrect Username and/or Password');
+                response.direct('login',{
                 });
             }
+            response.end();
         });
+    }else{
+        response.send('Please enter Username and Password');
+        response.end();
+    }
+});
 
 
 
