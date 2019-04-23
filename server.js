@@ -58,38 +58,35 @@ app.post('/register/submit', function (req, res){
     });
 
 
-app.get('/home', function(req, res){
-    res.render('home',{
-    });
-});
-
-
 app.get('/', function(req,res){
-    res.render('login',{
+    res.render('home',{
+        isValid: '',
     });
 });
 
-app.post('/login', function(req,res){
-    var userName = request.body.uname;
-    var userPass = request.body.psw;
-
-    if(userPass && userName){
-        connection.query('select * from users where username = ? and password = ?', [userName,userPass], function(error, results, fields){
-            if(results.length > 0){
-                request.sesion.loggedin = true;
-                request.session.username = username;
-                response.direct('filter');
-            }else{
-                response.send('Incorrect Username and/or Password');
-                response.direct('filter',{
+app.get('/login',function(req,res){
+    var userName = req.query.uname;
+    var userPass = req.query.psw;
+    var checkUser = "SELECT * FROM users WHERE user_name ='"+userName+"' and password = '"+userPass+"';";
+    db.any(checkUser)
+        .then(function(rows){
+            if(rows[0] != undefined){
+                console.log("works");
+                res.render('home');
+            }
+            else{
+                console.log("fails");
+                res.render('login',{
+                    isValid: rows
                 });
             }
-            response.end();
-        });
-    }else{
-        response.send('Please enter Username and Password');
-        response.end();
-    }
+        })
+        .catch(function(err){
+            request.flash('error', err);
+            response.render('login',{
+                isValid: '',
+            });
+        })
 });
 
 
