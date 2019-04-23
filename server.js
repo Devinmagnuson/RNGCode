@@ -16,17 +16,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //};
 
 //trying to play with db to connect to heroku
-//var db = require('pg-promise')();
+var db = require('pg-promise')();
 
 //DATABASE_URL=$(heroku config:get DATABASE_URL -a cuthirstytracker) your_process
 
 
-//const dbConfig = process.env.DATABASE_URL;
+const dbConfig = process.env.DATABASE_URL;
 
-//var db = pgp(dbConfig);
+var db = pgp(dbConfig);
 
 
-var connectionString = "postgres://oswmixgjvrjqdk:5dc9d975d6534240a995209965cfd140104962ee2039770c9e43bb3c628fd4cf@ec2-23-23-195-205.compute-1.amazonaws.com:5432/d7btfbcn3a35sj"
+//var connectionString = "postgres://oswmixgjvrjqdk:5dc9d975d6534240a995209965cfd140104962ee2039770c9e43bb3c628fd4cf@ec2-23-23-195-205.compute-1.amazonaws.com:5432/d7btfbcn3a35sj"
 
 /*pg.connect(connectionString, function(err, client, done)
 {
