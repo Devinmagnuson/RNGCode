@@ -16,11 +16,11 @@ var pgp = require('pg-promise')();
 //};
 
 //trying to play with db to connect to heroku
-var db = pgp('postgres://cycxtixl:tgq8Okya-25g3veNRT9wwKI2L84SjyVr@otto.db.elephantsql.com:5432/cycxtixl');
+//var db = pgp('postgres://cycxtixl:tgq8Okya-25g3veNRT9wwKI2L84SjyVr@otto.db.elephantsql.com:5432/cycxtixl');
 
-//const dbConfig = process.env.DATABASE_URL;
+const dbConfig = process.env.DATABASE_URL;
 
-//var db = pgp(dbConfig);
+var db = pgp(dbConfig);
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/"));
@@ -38,10 +38,10 @@ app.post('/register/submit', function (req, res){
     var userName = req.body.userName;
     var email = req.body.emailAddress;
     var password = req.body.passwordFirst;
-    
+
 
     var insert_query = "INSERT INTO users(name,user_name,email,password) VALUES('"
-                        +name+"','"+userName+"','"+email+"','"+password+"');"; 
+                        +name+"','"+userName+"','"+email+"','"+password+"');";
 
 
     db.any(insert_query)
@@ -51,8 +51,8 @@ app.post('/register/submit', function (req, res){
         })
     .catch(err => {
         console.log(err);
-        res.render("register") 
-           
+        res.render("register")
+
     })
     });
 
@@ -184,7 +184,7 @@ app.get("/filter/filter_result", function(req, res) {
     var starter_query = "select * from restaurants";
     var filter_query = starter_query + queries;
     filter_query += " order by restaurant_name;";
-    
+
     db.any(filter_query)
     .then(rows => {
         res.render("filter", {
