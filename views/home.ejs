@@ -6,26 +6,69 @@
         <meta name="description" content="">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <title>Home Page</title>
-        <link rel='icon' href='../resources/img/favicon.ico' type='image/x-icon'/>
+        <link rel='icon' href='https://cdn4.iconfinder.com/data/icons/eating-1/64/wine_bottle_glass-512.png' type='image/x-icon'/>
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
       </head>
 
       <body>
-        <nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <a class="navbar-brand" href="#">Thirsty Tracker</a>
+        <nav class="navbar navbar-expand-lg" style= 'background-color: #4caf50'>
+          <a class="navbar-brand" href="home.html">
+          <img class="square" src="../RNGCode/views/thirstytrackerlogo.png" alt="" width="60" height="60">
+
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+            <a class="nav-link" href="home" style="color: #ffffff">Home</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+            <a class="nav-link" href="location" style="color: #ffffff">Location</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+            <a class="nav-link" href="filter" style="color: #ffffff">Filter</a>
+            </li>
+          </ul>
+
+          <div class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Logout</button>
+          </div>
+          </div>
+      </nav>
+      <br>
+        <div class="container">
+          <div class="text-center">
+            <h1 class="page header">Welcome to Thirsty Tracker!</h1>
+          </div>
+          <div class="container">
+            <div class="img">
+              <img class="img" align="left" src="../SoftwareDev/thirstytrackerlogo.png" width="400" height="400" >
             </div>
-            <ul class="nav navbar-nav">
-              <!--<li class="active"><a href="#">Herp</a></li>-->
-              <li><a href="home">Home</a></li>
-              <li><a href="login">Login</a></li>
-              <li><a href="location">Location</a></li>
-              <li><a href="filter">Filter</a></li>
-              <li><a href="register">Registration</a></li>
-            </ul>
-            </div>
-        </nav>
+          </div>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <div class ="text-center">
+            <button class="btn btn-primary" 
+              <a href="register" ></a><span class="h1">Register</span>
+            </button>
+            <br>
+          </div>
+          <br>
+          <div class = "text-center">
+            <button class="btn btn-primary" 
+              <a href="login" ></a><span class="h1">Login</span>
+            </button>
+          </div>
+        </div>
       </body>
 </html>
