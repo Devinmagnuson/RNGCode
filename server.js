@@ -28,14 +28,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var connectionString = "postgres://oswmixgjvrjqdk:5dc9d975d6534240a995209965cfd140104962ee2039770c9e43bb3c628fd4cf@ec2-23-23-195-205.compute-1.amazonaws.com:5432/d7btfbcn3a35sj"
 
-pg.connect(connectionString, function(err, client, done)
+/*pg.connect(connectionString, function(err, client, done)
 {
    client.query('SELECT * FROM users', function(err, result) {
       done();
       if(err) return console.error(err);
       console.log(result.rows);
    });
-});
+});*/
 
 
 app.set("view engine", "ejs");
