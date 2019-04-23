@@ -92,7 +92,18 @@ app.get('/logout', function(req, res){
 
 
 app.get('/location', function(req, res){
-    res.render('location',{
+    location_query = "select * from restaurants order by restaurant_name;";
+    db.any(location_query)
+    .then(rows => {
+        res.render("location", {
+            results: rows
+        })
+    })
+    .catch(err => {
+        console.log(err);
+        res.render("location", {
+            results: ""
+        })
     });
 });
 

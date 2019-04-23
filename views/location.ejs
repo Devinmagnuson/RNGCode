@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <title>Displaying Text Directions With setPanel()</title>
+    <title>Location</title>
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -103,7 +103,20 @@
       <br>
       <strong>End:</strong>
       <select id="end">
-        <option value="909 Walnut Street, Boulder, CO">Arcana Restaurant</option>
+        <%
+        if (results) {
+            var option = '';
+            results.forEach(function(item){
+                address = String(item.restaurant_address);
+                name = String(item.restaurant_name);
+                option += '<option value="' + address + '">' + name + '</option>';
+            }); 
+            if (option == '') {
+                table = "<option>Nothing here</option>"
+            }%>
+        <%-option%>
+        <%}%>
+        <!--<option value="909 Walnut Street, Boulder, CO">Arcana Restaurant</option>
         <option value="949 Walnut Street, Boulder, CO">The Attic Bar and Bistro</option>
         <option value="2017 13th St, Boulder, CO">Bohemian Biergarten</option>
         <option value="921 Walnut St, Boulder, CO">Boulder Chophouse and Tavern</option>
@@ -111,7 +124,7 @@
         <option value="950 Pearl St, Boulder, CO">Centro Mexican Kitchen</option>
         <option value="2115 13th St, Boulder, CO">The Corner Bar</option>
         <option value="1048 Pearl St, Boulder, CO">Eureka!</option>
-        <option value="1117 Pearl St, Boulder, CO">Hapa Sushi Grill and Sake Bar</option>
+        <option value="1117 Pearl St, Boulder, CO">Hapa Sushi Grill and Sake Bar</option>-->
       </select>
     </div>
     <div id="right-panel"></div>
