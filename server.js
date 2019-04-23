@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//var pgp = require('pg-promise')();
+var pgp = require('pg-promise')();
 
 //const dbConfig = {
 //  host: 'localhost',
