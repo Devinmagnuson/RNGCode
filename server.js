@@ -184,8 +184,7 @@ app.get("/filter/filter_result", function(req, res) {
     var starter_query = "select * from restaurants";
     var filter_query = starter_query + queries;
     filter_query += " order by restaurant_name;";
-
-    console.log(filter_query);
+    
     db.any(filter_query)
     .then(rows => {
         res.render("filter", {
