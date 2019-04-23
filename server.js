@@ -18,6 +18,11 @@ const dbConfig = process.env.DATABASE_URL;
 
 var db = pgp(dbConfig);
 
+//elephantsql for easy testing locally
+
+//var db = pgp('postgres://cycxtixl:tgq8Okya-25g3veNRT9wwKI2L84SjyVr@otto.db.elephantsql.com:5432/cycxtixl');
+//var db = pgp('postgres://oswmixgjvrjqdk:5dc9d975d6534240a995209965cfd140104962ee2039770c9e43bb3c628fd4cf@ec2-23-23-195-205.compute-1.amazonaws.com:5432/d7btfbcn3a35sj');
+
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/"));
 
@@ -76,7 +81,7 @@ app.post('/login', function(req,res){
                 response.direct('filter');
             }else{
                 response.send('Incorrect Username and/or Password');
-                response.direct('login',{
+                response.direct('filter',{
                 });
             }
             response.end();
@@ -203,6 +208,9 @@ app.get("/filter/filter_result", function(req, res) {
         })
     })
 });
+
+//for easy testing locally
+//app.listen(3000);
 
 app.listen(process.env.PORT);
 console.log('This is a magic Heroku port');
