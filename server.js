@@ -18,9 +18,13 @@ var pgp = require('pg-promise')();
 //trying to play with db to connect to heroku
 //var db = pgp('postgres://cycxtixl:tgq8Okya-25g3veNRT9wwKI2L84SjyVr@otto.db.elephantsql.com:5432/cycxtixl');
 
+//DATABASE_URL=$(heroku config:get DATABASE_URL -a cuthirstytracker) your_process
+
+
 const dbConfig = process.env.DATABASE_URL;
 
 var db = pgp(dbConfig);
+
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/"));
