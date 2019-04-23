@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //};
 
 //trying to play with db to connect to heroku
-var db = require('pg-promise')();
+//var db = require('pg-promise')();
 
 //DATABASE_URL=$(heroku config:get DATABASE_URL -a cuthirstytracker) your_process
 
