@@ -68,7 +68,7 @@ app.get('/home', function(req, res){
 
 
 app.get('/', function(req,res){
-    res.render('login',{
+    res.render('home',{
     });
 });
 
