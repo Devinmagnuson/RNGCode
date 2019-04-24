@@ -4,7 +4,6 @@ const path = require('path');
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 var pgp = require('pg-promise')();
 
 //const dbConfig = {
@@ -20,7 +19,7 @@ var db = pgp('postgres://oswmixgjvrjqdk:5dc9d975d6534240a995209965cfd140104962ee
 
 //DATABASE_URL=$(heroku config:get DATABASE_URL -a cuthirstytracker) your_process
 //elephantsql for easy testing locally
-
+//var db = pgp('postgres://cycxtixl:tgq8Okya-25g3veNRT9wwKI2L84SjyVr@otto.db.elephantsql.com:5432/cycxtixl');
 
 const dbConfig = process.env.DATABASE_URL;
 
@@ -68,8 +67,8 @@ app.get('/home', function(req, res){
 });
 
 
-    res.render('/', function(req,res){
-        res.render('home', {
+    app.get('/', function(req, res){
+        res.render('home',{
             isValid:'',
         });
     });
@@ -90,14 +89,15 @@ app.get('/login',function(req,res){
                     isValid: rows
                 });
             }
-            response.end();
+            res.end();
         })
         .catch(function(err){
-            request.flash('error', err);
-            response.render('login',{
+            req.flash('error', err);
+            res.render('login',{
                 isValid: '',
             });
         });
+    });
 
 
 
@@ -215,6 +215,8 @@ app.get("/filter/filter_result", function(req, res) {
         })
     })
 });
+
+//app.listen(3000);
 
 app.listen(process.env.PORT);
 console.log('This is a magic Heroku port');
