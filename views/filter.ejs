@@ -65,8 +65,7 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="../register" style="color: #ffffff">Registration</a>
                     </li>
-                </ul>
-            </div>       
+                </ul> 
         </nav>
         <br>
         <form class="form" action="/filter/filter_result" method="get">
@@ -112,7 +111,7 @@
                         <option selected value="">Select Food Type</option>
                         <%
                         var food_menu = '';
-                        var foods = ["American", "Mexican", "Asian", "French", "Comfort", "Grill", "Steakhouse", "Sushi"]
+                        var foods = ["American", "Mexican", "Asian"]
                         foods.forEach(function(item) {
                             food_menu += "<option value='" + item + "'>" + item + "</option>";
                             food_menu += item
@@ -123,7 +122,7 @@
                             <option selected value="">Select Drink Type</option>
                             <%
                             var drink_menu = '';
-                            var drinks = ["Beer", "Wine", "Cocktail", "Margarita", "Cider", "Sangria", "Daquiri", "Well"]
+                            var drinks = ["Beer", "Wine", "Cocktail"]
                             drinks.forEach(function(item) {
                                 drink_menu += "<option value='" + item + "'>" + item + "</option>";
                                 drink_menu += item
