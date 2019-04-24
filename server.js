@@ -16,7 +16,7 @@ var pgp = require('pg-promise')();
 //};
 
 //trying to play with db to connect to heroku
-var db = pgp('postgres://oswmixgjvrjqdk:5dc9d975d6534240a995209965cfd140104962ee2039770c9e43bb3c628fd4cf@ec2-23-23-195-205.compute-1.amazonaws.com:5432/d7btfbcn3a35sj');
+//var db = pgp('postgres://oswmixgjvrjqdk:5dc9d975d6534240a995209965cfd140104962ee2039770c9e43bb3c628fd4cf@ec2-23-23-195-205.compute-1.amazonaws.com:5432/d7btfbcn3a35sj');
 
 //DATABASE_URL=$(heroku config:get DATABASE_URL -a cuthirstytracker) your_process
 //elephantsql for easy testing locally
