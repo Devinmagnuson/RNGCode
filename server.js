@@ -22,9 +22,9 @@ var db = pgp('postgres://oswmixgjvrjqdk:5dc9d975d6534240a995209965cfd140104962ee
 //elephantsql for easy testing locally
 
 
-//const dbConfig = process.env.DATABASE_URL;
+const dbConfig = process.env.DATABASE_URL;
 
-//var db = pgp(dbConfig);
+var db = pgp(dbConfig);
 
 
 app.set("view engine", "ejs");
@@ -68,23 +68,35 @@ app.get('/home', function(req, res){
 });
 
 
-app.get('/', function(req,res){
-    res.render('home',{
+    res.render('/', function(req,res){
+        res.render('home'{
+            isValid:'',
+        });
     });
-});
 
 app.get('/login',function(req,res){
-    //console.log(req.query);
     var userName = req.query.uname;
     var userPass = req.query.psw;
-
-            if(userName == 'admin' && userPass == 'pass'){
+    var checkUser = "SELECT * FROM users WHERE user_name ='"+userName+"' and password = '"+userPass+"';";
+    db.any(checkUser)
+        .then(function(rows){
+            if(rows[0] != undefined){
+                console.log("works");
                 res.render('home');
             }
             else{
+                console.log("fails");
                 res.render('login',{
+                    isValid: rows
                 });
             }
+            response.end();
+        });
+        .catch(function(err){
+            request.flash('error', err);
+            response.render('login',{
+                isValid: '',
+            });
         });
 
 
