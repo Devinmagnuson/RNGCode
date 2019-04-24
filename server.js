@@ -69,7 +69,7 @@ app.get('/home', function(req, res){
 
 
     res.render('/', function(req,res){
-        res.render('home'{
+        res.render('home', {
             isValid:'',
         });
     });
@@ -91,7 +91,7 @@ app.get('/login',function(req,res){
                 });
             }
             response.end();
-        });
+        })
         .catch(function(err){
             request.flash('error', err);
             response.render('login',{
