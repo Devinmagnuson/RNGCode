@@ -1,5 +1,7 @@
 # RNGCode
-Welcome to Thirsty Tracker! This the app where you can find nearby resteraunts that serve your favorite food and beverages. And, to top it off, you can see when and where local happy hours are occuring so you can get the best deals
+Welcome to Thirsty Tracker! This the app where you can find nearby resteraunts that serve your favorite food and beverages. And, to top it off, you can see when and where local happy hours are occuring so you can get the best deals.
+
+The app is deployed through Heroku using node.js. Resources and node_modules contain the framework for node.js apps. Views contains our html and js files. All database connections are located in the databases folder.
 
 Usage:
   Simply go to: http://cuthirstytracker.herokuapp.com/home
